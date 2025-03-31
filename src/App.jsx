@@ -1,12 +1,12 @@
-import TemperatureView from "./presentation/UI/TemperatureView";
+import React from "react";
+import DashboardView from "./home/presentation/views/DashboardView";
 
 function App() {
-    return (
-        <div>
-            <h1>Monitor de Jaula en Tiempo Real</h1>
-            <TemperatureView />
-        </div>
-    );
+  return (
+    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+      <DashboardView />
+    </div>
+  );
 }
 
 export default App;

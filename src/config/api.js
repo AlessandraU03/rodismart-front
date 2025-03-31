@@ -1,4 +1,6 @@
-const API_URL = "http://34.197.223.139:8080/temperatures/hamster/1";
+const API_URL = "http://localhost:8080/temperatures/hamster/1";
+const WS_URL = "ws://localhost:8080/ws"; // WebSocket en localhost
+
 
 export const api = {
   // Método para obtener la temperatura en tiempo real.

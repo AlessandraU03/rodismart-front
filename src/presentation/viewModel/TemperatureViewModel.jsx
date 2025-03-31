@@ -3,22 +3,21 @@ import { TemperaturaRepository } from "../../data/TemperatureRepository";
 import { GetTemperaturaUseCase } from "../../domain/useCases/GetTemperatureUseCase";
 
 export function useTemperatureViewModel() {
-  const [temperatura, setTemperatura] = useState(null); // Inicializamos con `null`
-  const [loading, setLoading] = useState(true); // Estado de carga.
-  const [error, setError] = useState(null); // Estado de error
+  const [temperatura, setTemperatura] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchTemperatura() {
       try {
-        const temperaturaRepository = new TemperaturaRepository(); // Corrección: Instancia correctamente el repositorio
+        const temperaturaRepository = new TemperaturaRepository();
         const getTemperaturaUseCase = new GetTemperaturaUseCase(temperaturaRepository);
         const result = await getTemperaturaUseCase.execute();
-        
-        // Verifica si la API devuelve un array y toma el primer elemento si es necesario
+
         if (Array.isArray(result) && result.length > 0) {
-          setTemperatura(result[0]); // Tomamos la última medición
+          setTemperatura(result[0]);
         } else {
-          setTemperatura(null); // No hay datos
+          setTemperatura(null);
         }
 
         setLoading(false);
@@ -29,13 +28,40 @@ export function useTemperatureViewModel() {
       }
     }
 
-    fetchTemperatura(); 
+    fetchTemperatura();
 
-    // Opcional: Refrescar cada 10 segundos para obtener datos en tiempo real
-    const interval = setInterval(fetchTemperatura, 10000);
-    
-    return () => clearInterval(interval); // Limpiar el intervalo cuando el componente se desmonta
+    const socket = new WebSocket("ws://localhost:8080/ws");
+
+    socket.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.sensor === "temperatura") {
+          setTemperatura({
+            Temperatura: data.value,
+            HoraRegistro: data.timestamp,
+          });
+        }
+      } catch (err) {
+        console.error("Error procesando mensaje WebSocket:", err);
+      }
+    };
+
+    socket.onerror = (err) => {
+      console.error("WebSocket error:", err);
+      setError("Error en la conexión WebSocket");
+    };
+
+    socket.onclose = () => {
+      console.log("Conexión WebSocket cerrada, intentando reconectar...");
+      setTimeout(() => {
+        fetchTemperatura();
+      }, 5000);
+    };
+
+    return () => {
+      socket.close();
+    };
   }, []);
 
-  return { temperatura, loading, error }; // Devuelve los datos y el estado de error.
+  return { temperatura, loading, error };
 }
