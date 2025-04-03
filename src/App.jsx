@@ -1,12 +1,7 @@
-import React from "react";
-import DashboardView from "./home/presentation/views/DashboardView";
+import AppRouter from "./core/routes/AppRouter";
 
 function App() {
-  return (
-    <div className="bg-gray-100 min-h-screen flex justify-center items-center">
-      <DashboardView />
-    </div>
-  );
+  return <AppRouter />;
 }
 
 export default App;

@@ -1,22 +1,34 @@
-import { useState } from "react";
-import GetCameraUrl from "../../domain/useCases/GetCameraUrl";
+import { useState, useEffect } from "react";
+import CameraAPI from "../../data/datasources/CameraAPI";
 
 function CameraViewModel() {
-  const [cameraUrl, setCameraUrl] = useState("");
+  const [cameraStream, setCameraStream] = useState("");
+  let ws = null; // Variable para almacenar la conexión WebSocket
 
-  async function fetchCameraUrl() {
-    const url = await GetCameraUrl();
-    setCameraUrl(url);
+  useEffect(() => {
+    connectWebSocket();
+    return () => {
+      if (ws) {
+        ws.close(); // Cerramos la conexión WebSocket al desmontar el componente
+      }
+    };
+  }, []);
+
+  function connectWebSocket() {
+    ws = CameraAPI.createWebSocketConnection(setCameraStream);
   }
 
-  const refreshStream = () => {
-    setCameraUrl("");
+  function refreshStream() {
+    setCameraStream(""); // Borra la imagen actual
+    if (ws) {
+      ws.close(); // Cierra la conexión WebSocket actual
+    }
     setTimeout(() => {
-      fetchCameraUrl();
-    }, 100);
-  };
+      connectWebSocket(); // Reconectar al WebSocket
+    }, 500);
+  }
 
-  return { cameraUrl, refreshStream, fetchCameraUrl };
+  return { cameraStream, refreshStream };
 }
 
 export default CameraViewModel;

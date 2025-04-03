@@ -12,7 +12,7 @@ function ClimateViewModel() {
     try {
       const tempData = await GetTemperature();
       const humData = await GetHumidity();
-      const climateHistory = await GetClimateData();
+      let climateHistory = await GetClimateData();
 
       console.log("Datos históricos recibidos:", climateHistory);
 
