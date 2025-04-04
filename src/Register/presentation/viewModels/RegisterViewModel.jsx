@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from 'sweetalert2';
 import registerUserUseCase from "../../domain/useCases/RegisterUser";
 
 function useRegisterViewModel() {
@@ -24,7 +25,12 @@ function useRegisterViewModel() {
     setLoading(true);
     try {
       const response = await registerUserUseCase(formData);
-      alert("Usuario registrado correctamente");
+      Swal.fire({
+        title: 'Éxito',
+        text: 'Usuario registrado correctamente',
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+      });
       setFormData({
         nombre: "",
         correo: "",
@@ -33,7 +39,12 @@ function useRegisterViewModel() {
       });
     } catch (err) {
       setError(err.message);
-      alert("Error al registrar usuario: " + err.message);
+      Swal.fire({
+        title: 'Error',
+        text: 'Error al registrar usuario: ' + err.message,
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     } finally {
       setLoading(false);
     }
