@@ -1,9 +1,9 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../../../core/context/AuthContext'; // Reemplaza el path si es necesario
-import loginUseCase from '../../domain/useCases/LoginUseCase'; // Reemplaza con el path correcto
+import { AuthContext } from '../../../core/context/AuthContext';
+import authRepository from '../../data/repositories/AuthRepository';
 import { useNavigate } from 'react-router-dom';
 
-function useLoginViewModel () {
+function useLoginViewModel() {
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
   const { login } = useContext(AuthContext);
@@ -11,17 +11,26 @@ function useLoginViewModel () {
 
   const handleLogin = async () => {
     try {
-      // Llama al caso de uso de login
-      const user = await loginUseCase(correo, contrasena);
-      login(user); // Guarda al usuario en el contexto
-      navigate('/dashboard'); // Redirige a Dashboard después del login
+      const user = await authRepository.login(correo, contrasena);
+      login({ token: user.token, userType: user.userType, expiresAt: user.expiresAt });
+
+      if (user.userType === "administrador") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/usuario-dashboard");
+      }
+
     } catch (error) {
-      alert(error.message); // Muestra error si el login falla
+      alert(error.message);
     }
   };
 
   return {
-    correo, setCorreo, contrasena, setContrasena, handleLogin
+    correo,
+    setCorreo,
+    contrasena,
+    setContrasena,
+    handleLogin,
   };
 }
 

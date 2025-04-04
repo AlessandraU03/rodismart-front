@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../core/context/AuthContext';
+import Header from './HeaderView';
 
 function HomeView() {
   const { user } = useContext(AuthContext);
@@ -13,7 +14,9 @@ function HomeView() {
   }, [user, navigate]);
 
   return (
+    
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+      <Header></Header>
       {/* Contenedor con imagen a la izquierda y texto a la derecha */}
       <section className="bg-[#FFE6C8] text-white w-full max-w-6xl p-8 flex items-center justify-between rounded-xl">
         {/* Columna de imagen */}
@@ -31,8 +34,8 @@ function HomeView() {
           <p className="text-xl sm:text-2xl mb-6">
             Sabemos lo crucial que es el bienestar de tu mascota, y por eso hemos diseñado un sistema que te facilita cuidarla de forma sencilla y efectiva...
           </p>
-            <Link to="/login" className="bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400">
-              Iniciar sesión
+            <Link to="/register" className="bg-yellow-500 text-black py-2 px-6 rounded-full hover:bg-yellow-400">
+              Registrarse
             </Link>
         </div>
       </section>

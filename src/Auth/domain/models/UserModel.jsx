@@ -1,8 +1,7 @@
 export class UserModel {
-  constructor(id, correo, userType, token) {
-    this.id = id;
-    this.correo = correo;
-    this.userType = userType;
+  constructor(token, userType, expiresAt) {
     this.token = token;
+    this.userType = userType;
+    this.expiresAt = expiresAt;
   }
 }

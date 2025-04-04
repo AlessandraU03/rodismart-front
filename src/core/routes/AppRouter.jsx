@@ -6,22 +6,39 @@ import DashboardView from '../../home/presentation/views/DashboardView';
 import Header from '../../home/presentation/views/HeaderView';
 import { useContext } from 'react';
 import { AuthContext } from '../../core/context/AuthContext';
+import RegisterView from '../../Register/presentation/views/RegisterView';
+import AdminDashboard from '../../Administrador/prensentation/views/AdminDashboard';
+import UserCagesView from '../../Cliente/presentation/view/UserCagesViews';
+import { CageProvider } from '../context/CageContext';
 
-function AppRouter () {
-  const { user } = useContext(AuthContext);  // Obtener el estado del usuario desde el contexto
+function AppRouter() {
+  const { user } = useContext(AuthContext);
 
   return (
     <Router>
-      {user && <Header />} {/* Mostrar Header solo si el usuario está logueado */}
-      <Routes>
-        <Route path="/" element={<HomeView />} />
-        <Route path="/login" element={<Login />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<DashboardView />} />
-        </Route>
-      </Routes>
+      {/* Mostrar el Header solo si el usuario está autenticado */}
+      {user && user.userType !== "admin" && <Header />}
+
+      {/* Envuelve las rutas con CageProvider */}
+      <CageProvider>
+        <Routes>
+          {/* Rutas públicas */}
+          <Route path="/" element={<HomeView />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterView />} />
+
+          {/* Rutas protegidas */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/usuario-dashboard" element={<UserCagesView/>} />
+            <Route path="/dashboard/:idjaula" element={<DashboardView />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </CageProvider>
     </Router>
   );
-};
+}
 
 export default AppRouter;

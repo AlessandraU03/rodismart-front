@@ -1,5 +1,5 @@
 import React from 'react';
-import useLoginViewModel from '../viewModels/LoginViewModel';// Asegúrate de que el path sea correcto
+import useLoginViewModel from '../viewModels/LoginViewModel';
 
 function LoginView() {
   const { correo, setCorreo, contrasena, setContrasena, handleLogin } = useLoginViewModel();
@@ -9,7 +9,7 @@ function LoginView() {
       <h1 className="text-3xl font-bold mb-4">Iniciar Sesión</h1>
       <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="bg-white p-6 shadow-md rounded-lg">
         <input
-          type="email"
+          type="text"
           name="correo"
           placeholder="Correo"
           className="border p-2 w-full mb-2"
