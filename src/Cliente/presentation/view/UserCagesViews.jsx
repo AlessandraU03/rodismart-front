@@ -22,28 +22,7 @@ const UserCagesView = () => {
     {
       header: "Nombre del Hámster",
       accessorKey: "nombre_hamster",
-    },
-    {
-      header: "Estado",
-      accessorKey: "estado",
-      cell: ({ getValue }) => {
-        const estado = getValue();
-        return (
-          <span className={`px-2 py-1 rounded-full text-xs ${
-            estado === 'activo' ? 'bg-green-100 text-green-800' : 
-            estado === 'inactivo' ? 'bg-red-100 text-red-800' : 
-            'bg-gray-100 text-gray-800'
-          }`}>
-            {estado}
-          </span>
-        );
-      }
-    },
-    {
-      header: "Fecha de Creación",
-      accessorKey: "fecha_creacion",
-      cell: ({ getValue }) => new Date(getValue()).toLocaleDateString()
-    },
+    }
   ];
 
   const handleCageClick = (cage) => {
