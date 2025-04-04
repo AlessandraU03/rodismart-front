@@ -4,6 +4,7 @@ import { useCage } from "../../../core/context/CageContext";
 import SensorCard from "./components/SensorCard";
 import ConnectionStatusBar from "./components/ConnectionStatuBar";
 import CameraView from "./components/CameraView";
+import ClimateChart from "./ClimateChart";
 
 function DashboardView() {
   const { idjaula } = useParams();
@@ -11,7 +12,8 @@ function DashboardView() {
     currentCage, 
     data, 
     connectionStatus,
-    setCurrentCage 
+    setCurrentCage ,
+    climateData
   } = useCage();
 
   // Efecto para actualizar la jaula actual cuando cambia el parámetro de la URL
@@ -97,6 +99,8 @@ function DashboardView() {
           lastUpdated={data.lastUpdated}
         />
       </div>
+      <ClimateChart data={climateData} />
+
     </div>
   );
 }

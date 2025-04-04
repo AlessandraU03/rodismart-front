@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-
+import GetTemperature from "../../domain/useCases/GetTemperature";
+import GetHumidity from "../../domain/useCases/GetHumidity";
+import GetClimateData from "../../domain/useCases/GetClimateData";
 
 export function useClimateViewModel(cageId) {
   const [temperature, setTemperature] = useState(null);
   const [humidity, setHumidity] = useState(null);
   const [motion, setMotion] = useState(null);
   const [foodPercentage, setFoodPercentage] = useState(null);
+  const [climateData, setClimateData] = useState([]);
 
 
   useEffect(() => {
@@ -43,11 +46,39 @@ export function useClimateViewModel(cageId) {
     return () => ws.close();
   }, [cageId]);
 
+  async function fetchData() {
+    try {
+      const tempData = await GetTemperature();
+      const humData = await GetHumidity();
+      let climateHistory = await GetClimateData();
+
+      console.log("Datos históricos recibidos:", climateHistory);
+
+      // Ordenamos por fecha y hora
+      climateHistory.sort(
+        (a, b) => new Date(a.hora_registro) - new Date(b.hora_registro)
+      );
+
+      setTemperature(tempData ?? 0);
+      setHumidity(humData ?? 0);
+      setClimateData(climateHistory);
+    } catch (error) {
+      console.error("Error obteniendo datos:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  
+
   return {
     temperature,
     humidity,
     motion,
     foodPercentage,
-    
+    fetchData,
+    climateData
   };
 }

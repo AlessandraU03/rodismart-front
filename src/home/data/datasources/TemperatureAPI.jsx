@@ -3,23 +3,38 @@ const WS_URL = "ws://34.197.223.139:8080/ws/connect";
 let socket = null;
 let reconnectTimeout = null;
 
+const API_URL = `http://34.197.223.139:8080/temperatures/hamster/${idjaula}`;
+
 const TemperatureAPI = {
-  // Obtiene la última temperatura
-  async fetchTemperature(idjaula) {
+  async fetchTemperature() {
     try {
-      const response = await fetch(`http://34.197.223.139:8080/temperatures/hamster/${idjaula}`);
+      const response = await fetch(API_URL);
       const data = await response.json();
-      console.log("📡 Datos recibidos de la API de temperatura:", data);
+
+      console.log("Datos recibidos de la API de temperatura:", data);
 
       if (!Array.isArray(data) || data.length === 0) {
-        console.error("⚠️ La API no devolvió un array válido:", data);
-        return { temperatura: 0 };
+        console.error("La API no devolvió un array válido:", data);
+        return 0;
       }
 
-      return data[data.length - 1] || { temperatura: 0 };
+      const latestTemperature = data[data.length - 1].temperatura;
+      return latestTemperature ?? 0;
     } catch (error) {
-      console.error("❌ Error al obtener la temperatura:", error);
-      return { temperatura: 0 };
+      console.error("Error al obtener la temperatura:", error);
+      return 0;
+    }
+  },
+
+  async fetchTemperatureHistory() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      console.log("Historial de temperatura recibido:", data);
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error("Error obteniendo historial de temperatura:", error);
+      return [];
     }
   },
 
