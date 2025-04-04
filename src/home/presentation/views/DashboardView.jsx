@@ -4,6 +4,8 @@ import { useCage } from "../../../core/context/CageContext";
 import SensorCard from "./components/SensorCard";
 import ConnectionStatusBar from "./components/ConnectionStatuBar";
 import CameraView from "./components/CameraView";
+import Header from "../../../home/presentation/views/HeaderView";
+
 
 function DashboardView() {
   const { idjaula } = useParams();
@@ -43,7 +45,9 @@ function DashboardView() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+  
+    <div className="max-w-4xl mx-auto p-6  rounded-lg shadow-lg bg-[#FFE6C8] mt-24">
+      <Header></Header>
       {/* Título con nombre del hamster o ID de jaula */}
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
         {currentCage?.nombre_hamster || `Jaula ${idjaula}`}

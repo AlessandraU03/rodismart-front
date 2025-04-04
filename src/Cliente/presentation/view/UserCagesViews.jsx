@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useCage } from "../../../core/context/CageContext";
 import CageRepository from "../../../Administrador/data/repositories/CageRepository";
+import Header from "../../../home/presentation/views/HeaderView";
 
 const UserCagesView = () => {
     const token = sessionStorage.getItem("token");
@@ -105,7 +106,8 @@ const UserCagesView = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <Header></Header>
+      <div className="bg-[#FFE6C8] rounded-lg shadow-md p-10 mt-14">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Mis Jaulas</h2>
         
         {userInfo && (
