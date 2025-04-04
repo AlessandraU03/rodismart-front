@@ -9,7 +9,7 @@ export default function useFoodViewModel(cageId) {
   const connectWebSocket = useCallback((token) => {
     if (!token || socket) return;
 
-    const newSocket = new WebSocket(`ws://localhost:8080/ws/connect?token=${token}`);
+    const newSocket = new WebSocket(`ws://34.197.223.139:8080/ws/connect?token=${token}`);
 
     newSocket.onopen = () => {
       console.log("✅ WebSocket alimento conectado");

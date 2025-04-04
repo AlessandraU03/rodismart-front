@@ -1,4 +1,4 @@
-const WS_URL = "ws://localhost:8080/ws/connect";
+const WS_URL = "ws://34.197.223.139:8080/ws/connect";
 
 let socket = null;
 let reconnectTimeout = null;
@@ -7,7 +7,7 @@ const HumidityAPI = {
   // Obtiene la última humedad
   async fetchHumidity(idjaula) {
     try {
-      const response = await fetch(`http://localhost:8080/humidity/hamster/${idjaula}`);
+      const response = await fetch(`http://34.197.223.139:8080/humidity/hamster/${idjaula}`);
       const data = await response.json();
 
       console.log("Datos recibidos de la API de humedad:", data);

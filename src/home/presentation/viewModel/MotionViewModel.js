@@ -8,7 +8,7 @@ export default function useMotionViewModel(cageId) {
   const connectWebSocket = useCallback((token) => {
     if (!token || socket) return;
 
-    const newSocket = new WebSocket(`ws://localhost:8080/ws/motion?token=${token}`);
+    const newSocket = new WebSocket(`ws://34.197.223.139:8080/ws/motion?token=${token}`);
 
     newSocket.onopen = () => {
       console.log("✅ WebSocket movimiento conectado");

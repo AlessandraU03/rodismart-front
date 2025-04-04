@@ -15,7 +15,7 @@ export class WebSocketService {
       if (this.socket) this.disconnect();
   
       this.currentCageId = cageId;
-      const wsUrl = `ws://localhost:8080/ws/connect?token=${token}&cage_id=${cageId}`;
+      const wsUrl = `ws://34.197.223.139:8080/ws/connect?token=${token}&cage_id=${cageId}`;
       this.socket = new WebSocket(wsUrl);
   
       this.socket.onopen = () => {

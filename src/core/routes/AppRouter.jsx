@@ -17,7 +17,7 @@ function AppRouter() {
   return (
     <Router>
       {/* Mostrar el Header solo si el usuario está autenticado */}
-      {user && user.userType !== "admin" && <Header />}
+      
 
       {/* Envuelve las rutas con CageProvider */}
       <CageProvider>

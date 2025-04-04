@@ -1,5 +1,5 @@
-const API_URL = "http://localhost:8080/admin/cages";
-const API_URL_USER = "http://localhost:8080/cages";
+const API_URL = "http://34.197.223.139:8080/admin/cages";
+const API_URL_USER = "http://34.197.223.139:8080/cages";
 
 const CageAPI = {
   async fetchAllCages(token) {

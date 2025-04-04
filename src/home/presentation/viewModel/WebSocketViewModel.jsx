@@ -6,7 +6,7 @@ export const useWebSocket = (token, onMessageCallback) => {
     const token = sessionStorage.getItem("token");
     if (!token) return;
 
-    const ws = new WebSocket(`ws://localhost:8080/ws/connect?token=${token}`);
+    const ws = new WebSocket(`ws://34.197.223.139:8080/ws/connect?token=${token}`);
 
     ws.onopen = () => {
       console.log("Conectado al WebSocket");

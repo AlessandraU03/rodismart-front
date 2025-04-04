@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/users";
+const API_URL = "http://34.197.223.139:8080/users";
 
 const UserAPI = {
   async createUser(user) {

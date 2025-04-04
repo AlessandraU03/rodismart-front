@@ -16,7 +16,7 @@ export function useClimateViewModel(cageId) {
     
 
     // Conectar al WebSocket
-    const ws = new WebSocket(`ws://localhost:8080/ws/connect?token=${token}`);
+    const ws = new WebSocket(`ws://34.197.223.139:8080/ws/connect?token=${token}`);
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);

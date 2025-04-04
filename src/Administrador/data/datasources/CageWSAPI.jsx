@@ -1,4 +1,4 @@
-const WS_URL = "ws://localhost:8080/ws/connect";
+const WS_URL = "ws://34.197.223.139:8080/ws/connect";
 
 export default class CageWSDataSource {
   constructor() {
