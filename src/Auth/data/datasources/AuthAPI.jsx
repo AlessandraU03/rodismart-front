@@ -12,7 +12,12 @@ const authApi = {
       throw new Error('Credenciales incorrectas');
     }
 
-    return await response.json();
+    const data = await response.json();
+    return {
+      token: data.token,
+      expiresAt: data.expires_at,
+      userType: data.user_type, 
+    };
   }
 };
 

@@ -27,7 +27,7 @@ function Header() {
           <h1 className="text-xl font-semibold">RodiSmart</h1>
         </div>
         <nav className="flex space-x-6">
-          <Link to="/" className="hover:text-gray-300">Home</Link>
+          <Link to="/login" className="hover:text-gray-300">Sing In</Link>
           <Link to="/dashboard" className="hover:text-gray-300">Dashboard</Link>
           {user ? (
             <>

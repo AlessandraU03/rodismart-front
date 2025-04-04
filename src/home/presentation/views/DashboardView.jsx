@@ -1,33 +1,101 @@
 import React, { useEffect } from "react";
-import ClimateCard from "./ClimateCard";
-import ClimateViewModel from "../viewModel/ClimateViewModel";
-import ClimateChart from "./ClimateChart";
-import CameraView from "./CameraView";
-import FoodStatusCard from "./FoodCard";
-import FoodViewModel from "../viewModel/FoodViewModel";
+import { data, useParams } from "react-router-dom";
+import { useCage } from "../../../core/context/CageContext";
+import SensorCard from "./components/SensorCard";
+import ConnectionStatusBar from "./components/ConnectionStatuBar";
+import CameraView from "./components/CameraView";
 
 function DashboardView() {
-  const { temperatura, humedad, climateData, fetchData } = ClimateViewModel();
-  const { alimento, porcentaje, foodData, fetchFoodData } = FoodViewModel();
+  const { idjaula } = useParams();
+  const { 
+    currentCage, 
+    data, 
+    connectionStatus,
+    setCurrentCage 
+  } = useCage();
 
-  console.log("Datos en DashboardView:", { alimento, porcentaje, foodData });
-
+  // Efecto para actualizar la jaula actual cuando cambia el parámetro de la URL
   useEffect(() => {
-    fetchData();
-    fetchFoodData();
-  }, [fetchData, fetchFoodData]); // Agregamos las dependencias para evitar bugs
+    if (idjaula && (!currentCage || currentCage.idjaula !== idjaula)) {
+      setCurrentCage({ idjaula });
+    }
+  }, [idjaula, currentCage, setCurrentCage]);
+
+  // Función para determinar el estado de alerta de cada sensor
+  const getAlertStatus = (type) => {
+    switch(type) {
+      case 'temperature':
+        return data.temperatura !== null && data.temperatura >= 30;
+      case 'humidity':
+        return data.humedad !== null && data.humedad <= 20;
+      case 'food':
+        return data.porcentaje !== null && data.porcentaje <= 20;
+      case 'motion':
+        return data.movimiento === true;
+      default:
+        return false;
+    }
+  };
+
+  // Función para formatear valores nulos
+  const formatValue = (value, unit = '') => {
+    return value !== null ? `${value}${unit}` : 'N/A';
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold text-center mb-6">Dashboard</h1>
-      <CameraView />
-      <div className="grid grid-cols-3 gap-4">
-        <ClimateCard title="Temperatura" value={`${temperatura}°C`} />
-        <ClimateCard title="Humedad" value={`${humedad}%`} />
-        <FoodStatusCard porcentaje={porcentaje} alimento={alimento} />
-      </div>
-      <div className="mt-6">
-        <ClimateChart data={climateData} />
+      {/* Título con nombre del hamster o ID de jaula */}
+      <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+        {currentCage?.nombre_hamster || `Jaula ${idjaula}`}
+      </h1>
+      
+      {/* Barra de estado de conexión */}
+      <ConnectionStatusBar 
+        isConnected={connectionStatus.isConnected}
+      />
+      
+      {/* Vista de la cámara */}
+      <CameraView cageId={idjaula} />
+      
+      {/* Grid de tarjetas de sensores */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {/* Tarjeta de Temperatura */}
+        <SensorCard
+          type="temperature"
+          value={data.temperatura}
+          unit="°C"
+          alert={getAlertStatus('temperature')}
+          lastUpdated={data.lastUpdated}
+        />
+        
+        {/* Tarjeta de Humedad */}
+        <SensorCard
+          type="humidity"
+          value={data.humedad}
+          unit="%"
+          alert={getAlertStatus('humidity')}
+          lastUpdated={data.lastUpdated}
+        />
+        
+        {/* Tarjeta de Movimiento */}
+        <SensorCard
+          type="motion"
+          value={data.movimiento}
+          alert={getAlertStatus('motion')}
+          lastUpdated={data.lastUpdated}
+        />
+        
+        {/* Tarjeta de Alimento */}
+        <SensorCard
+          type="food"
+          value={data.porcentaje}
+          unit="%"
+          status={data.alimento !== null 
+            ? data.alimento ? "Disponible" : "Agotado" 
+            : "N/A"}
+          alert={getAlertStatus('food')}
+          lastUpdated={data.lastUpdated}
+        />
       </div>
     </div>
   );

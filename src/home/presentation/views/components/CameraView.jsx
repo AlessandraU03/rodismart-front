@@ -1,5 +1,5 @@
 import React from "react";
-import CameraViewModel from "../viewModel/CameraViewModel";
+import CameraViewModel from "../../viewModel/CameraViewModel";
 
 function CameraView() {
   const { cameraStream, refreshStream } = CameraViewModel();
