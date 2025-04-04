@@ -18,7 +18,7 @@ function HomeView() {
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <Header></Header>
       {/* Contenedor con imagen a la izquierda y texto a la derecha */}
-      <section className="bg-[#FFE6C8] text-white w-full max-w-6xl p-8 flex items-center justify-between rounded-xl">
+      <section className="bg-[#FFE6C8] text-white w-full max-w-7xl p-8 flex items-center justify-between rounded-xl">
         {/* Columna de imagen */}
         <div className="w-1/2 pr-8">
           <img 

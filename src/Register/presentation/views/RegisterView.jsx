@@ -1,5 +1,6 @@
 import React from "react";
 import useRegisterViewModel from "../viewModels/RegisterViewModel";
+import Header from "../../../home/presentation/views/HeaderView";
 
 function RegisterView() {
   const {
@@ -11,7 +12,12 @@ function RegisterView() {
   } = useRegisterViewModel();
 
   return (
-    <div className="w-full max-w-md mx-auto p-6">
+    <div className="flex items-center justify-center min-h-screen bg-white">
+      <Header></Header>
+    <div className="bg-[#FFE6C8] p-6 rounded-lg shadow-lg w-80">
+      <div className="flex justify-center mb-4">
+        <img src="/logo.png" alt="Hamster" className="w-20 h-16" />
+      </div>
       <h2 className="text-xl font-bold mb-4">Registro de Usuario</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -56,32 +62,16 @@ function RegisterView() {
             required
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="tipo">
-            Tipo
-          </label>
-          <select
-            id="tipo"
-            name="tipo"
-            value={formData.tipo}
-            onChange={handleInputChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            required
-          >
-            <option value="">Selecciona el tipo</option>
-            <option value="usuario">Cliente</option>
-            <option value="administrador">Administrador</option>
-          </select>
-        </div>
         <button
           type="submit"
-          className="w-full py-2 mt-4 bg-blue-500 text-white rounded-md"
+          className="w-full py-2 mt-4 bg-white text-black rounded-md"
           disabled={loading}
         >
           {loading ? "Registrando..." : "Registrar"}
         </button>
       </form>
       {error && <p className="text-red-500 mt-2">{error}</p>}
+    </div>
     </div>
   );
 }

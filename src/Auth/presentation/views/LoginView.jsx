@@ -1,32 +1,43 @@
 import React from 'react';
 import useLoginViewModel from '../viewModels/LoginViewModel';
+import Header from "../../../home/presentation/views/HeaderView";
 
 function LoginView() {
   const { correo, setCorreo, contrasena, setContrasena, handleLogin } = useLoginViewModel();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-3xl font-bold mb-4">Iniciar Sesión</h1>
-      <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="bg-white p-6 shadow-md rounded-lg">
+      <Header></Header>
+      <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className= "bg-[#FFE6C8] p-6 rounded-lg shadow-lg w-80">
+      <div className="flex justify-center mb-4">
+        <img src="/logo.png" alt="Hamster" className="w-20 h-16" />
+      </div>
+      <label className="block text-sm font-medium mb-1" htmlFor="correo">
+            Usuario
+          </label>
         <input
           type="text"
           name="correo"
           placeholder="Correo"
-          className="border p-2 w-full mb-2"
+          className="w-full p-2 border border-gray-300 rounded-md"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
           required
         />
+
+          <label className="block text-sm font-medium mb-1" htmlFor="contrasena">
+            Contraseña
+          </label>
         <input
           type="password"
           name="contrasena"
           placeholder="Contraseña"
-          className="border p-2 w-full mb-4"
+          className="w-full p-2 border border-gray-300 rounded-md"
           value={contrasena}
           onChange={(e) => setContrasena(e.target.value)}
           required
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button type="submit" className="w-full py-2 mt-4 bg-white text-black rounded-md">
           Entrar
         </button>
       </form>
