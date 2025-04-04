@@ -30,7 +30,7 @@ function HomeView() {
 
         {/* Columna de información */}
         <div className="w-1/2 pl-8">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">Bienvenido a Hámster Monitor</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">Bienvenido a RodiSmart</h1>
           <p className="text-xl sm:text-2xl mb-6">
             Sabemos lo crucial que es el bienestar de tu mascota, y por eso hemos diseñado un sistema que te facilita cuidarla de forma sencilla y efectiva...
           </p>
