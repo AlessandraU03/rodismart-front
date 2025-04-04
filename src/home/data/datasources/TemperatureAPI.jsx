@@ -1,13 +1,13 @@
 const WS_URL = "ws://34.197.223.139:8080/ws/connect";
-
+const API_URL = `http://34.197.223.139:8080/temperatures/hamster/8813BF704D60`;
 let socket = null;
 let reconnectTimeout = null;
 
-const API_URL = `http://34.197.223.139:8080/temperatures/hamster/${idjaula}`;
 
 const TemperatureAPI = {
   async fetchTemperature() {
     try {
+      const API_URL = `http://34.197.223.139:8080/temperatures/hamster/8813BF704D60`;
       const response = await fetch(API_URL);
       const data = await response.json();
 
@@ -26,17 +26,6 @@ const TemperatureAPI = {
     }
   },
 
-  async fetchTemperatureHistory() {
-    try {
-      const response = await fetch(API_URL);
-      const data = await response.json();
-      console.log("Historial de temperatura recibido:", data);
-      return Array.isArray(data) ? data : [];
-    } catch (error) {
-      console.error("Error obteniendo historial de temperatura:", error);
-      return [];
-    }
-  },
 
   // Conectar WebSocket para recibir datos de temperatura en tiempo real
   connectWebSocket(idjaula, token, onDataReceived) {
@@ -76,6 +65,19 @@ const TemperatureAPI = {
       this.reconnectWebSocket(idjaula, token, onDataReceived);
     };
   },
+
+  async fetchTemperatureHistory() {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      console.log("Historial de temperatura recibido:", data);
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error("Error obteniendo historial de temperatura:", error);
+      return [];
+    }
+  },
+
 
   // Reconectar WebSocket en caso de cierre inesperado
   reconnectWebSocket(idjaula, token, onDataReceived) {

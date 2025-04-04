@@ -1,13 +1,13 @@
 const WS_URL = "ws://34.197.223.139:8080/ws/connect";
-
+const API_URL =  `http://34.197.223.139:8080/humidity/hamster/8813BF704D60`;
 let socket = null;
 let reconnectTimeout = null;
 
-const API_URL =  `http://34.197.223.139:8080/humidity/hamster/${idjaula}`;
 
 const HumidityAPI = {
   async fetchHumidity() {
     try {
+
       const response = await fetch(API_URL);
       const data = await response.json();
 
@@ -37,6 +37,7 @@ const HumidityAPI = {
       return [];
     }
   },
+
 
   // Conectar WebSocket para recibir datos de humedad en tiempo real
   connectWebSocket(idjaula, token, onDataReceived) {

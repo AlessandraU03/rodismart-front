@@ -71,7 +71,8 @@ export function useClimateViewModel(cageId) {
     fetchData();
   }, []);
 
-  
+ 
+
 
   return {
     temperature,
