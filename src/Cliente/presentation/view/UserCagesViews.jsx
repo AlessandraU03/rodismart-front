@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 import { useCage } from "../../../core/context/CageContext";
 import CageRepository from "../../../Administrador/data/repositories/CageRepository";
+import Header from "../../../home/presentation/views/HeaderView";
 
 const UserCagesView = () => {
     const token = sessionStorage.getItem("token");
@@ -21,28 +22,7 @@ const UserCagesView = () => {
     {
       header: "Nombre del Hámster",
       accessorKey: "nombre_hamster",
-    },
-    {
-      header: "Estado",
-      accessorKey: "estado",
-      cell: ({ getValue }) => {
-        const estado = getValue();
-        return (
-          <span className={`px-2 py-1 rounded-full text-xs ${
-            estado === 'activo' ? 'bg-green-100 text-green-800' : 
-            estado === 'inactivo' ? 'bg-red-100 text-red-800' : 
-            'bg-gray-100 text-gray-800'
-          }`}>
-            {estado}
-          </span>
-        );
-      }
-    },
-    {
-      header: "Fecha de Creación",
-      accessorKey: "fecha_creacion",
-      cell: ({ getValue }) => new Date(getValue()).toLocaleDateString()
-    },
+    }
   ];
 
   const handleCageClick = (cage) => {
@@ -105,7 +85,8 @@ const UserCagesView = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      <div className="bg-white rounded-lg shadow-md p-6">
+      <Header></Header>
+      <div className="bg-[#FFE6C8] rounded-lg shadow-md p-10 mt-14">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Mis Jaulas</h2>
         
         {userInfo && (

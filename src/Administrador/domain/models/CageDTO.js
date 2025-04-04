@@ -1,9 +1,7 @@
 export default class Cage {
-    constructor({ idjaula, nombre_hamster, estado, fecha_creacion }) {
+    constructor({ idjaula, nombre_hamster }) {
       this.id = idjaula;
       this.hamsterName = nombre_hamster;
-      this.status = estado;
-      this.createdAt = new Date(fecha_creacion);
       this.metrics = {
         humidity: 0,
         temperature: 0,

@@ -18,7 +18,7 @@ function HomeView() {
     <div className="bg-gray-100 min-h-screen flex justify-center items-center">
       <Header></Header>
       {/* Contenedor con imagen a la izquierda y texto a la derecha */}
-      <section className="bg-[#FFE6C8] text-white w-full max-w-6xl p-8 flex items-center justify-between rounded-xl">
+      <section className="bg-[#FFE6C8] text-white w-full max-w-7xl p-8 flex items-center justify-between rounded-xl">
         {/* Columna de imagen */}
         <div className="w-1/2 pr-8">
           <img 
@@ -30,7 +30,7 @@ function HomeView() {
 
         {/* Columna de información */}
         <div className="w-1/2 pl-8">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">Bienvenido a Hámster Monitor</h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">Bienvenido a RodiSmart</h1>
           <p className="text-xl sm:text-2xl mb-6">
             Sabemos lo crucial que es el bienestar de tu mascota, y por eso hemos diseñado un sistema que te facilita cuidarla de forma sencilla y efectiva...
           </p>

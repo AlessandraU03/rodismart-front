@@ -40,5 +40,4 @@ function ClimateChart({ data }) {
   );
 }
 
-
 export default ClimateChart;
