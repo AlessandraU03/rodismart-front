@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/humidity/hamster/1";
+const API_URL = "http://34.197.223.139:8080/humidity/hamster/1";
 
 const HumidityAPI = {
   async fetchHumidity() {
